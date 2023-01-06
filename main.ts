@@ -1,0 +1,30 @@
+sprites.onOverlap(SpriteKind.Guard, SpriteKind.Enemy, function (sprite, otherSprite) {
+    info.changeScoreBy(1)
+    Namor.setPosition(148, 2)
+})
+info.onScore(1, function () {
+    Namor.destroy()
+    scene.setBackgroundImage(assets.image`vibranium`)
+    effects.blizzard.startScreenEffect()
+    Shuri.sayText("WAKANDA FOREVER!", 2000, true)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    info.changeLifeBy(-1)
+    Namor.setPosition(148, 2)
+})
+let Namor: Sprite = null
+let Shuri: Sprite = null
+game.showLongText("When game begins, press the ARROW KEYS to move Shuri, Okoye and Riri. If Namor catches you, you will lose points! Click A to start the game.", DialogLayout.Full)
+scene.setBackgroundImage(assets.image`wakanda`)
+Shuri = sprites.create(assets.image`shuri`, SpriteKind.Player)
+controller.moveSprite(Shuri)
+Shuri.setStayInScreen(true)
+Namor = sprites.create(assets.image`namor`, SpriteKind.Enemy)
+Namor.setPosition(148, 2)
+Namor.follow(Shuri, 25)
+let Riri = sprites.create(assets.image`riri`, SpriteKind.Player)
+Riri.setStayInScreen(true)
+controller.moveSprite(Riri, 34, -53)
+let Okoye = sprites.create(assets.image`okoye`, SpriteKind.Player)
+Okoye.setStayInScreen(true)
+controller.moveSprite(Okoye, -68, -58)
